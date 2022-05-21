@@ -1,0 +1,29 @@
+.footer {
+    background-color:#000;
+    padding: 103px 0 103px 0;
+}
+
+.footer a {
+    color: #fff;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+}
+
+.footer .container-inner2 {
+    display: flex;
+    justify-content: center;
+}
+
+.footer .schedule {
+    display: flex;
+    align-items: center;
+}
+
+.phone .row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer .main-information {
+    padding-bottom: 40px;
+}
