@@ -12,7 +12,7 @@ document.write(`<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-t
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
           <li class="nav-item active"><a class="nav-link" href="/about">Pop Music<span class="sr-only">(current)</span></a></li>
-          <li class="nav-item active"><a class="nav-link" href="/profile">Jazz</a></li>
+          <li class="nav-item active"><a class="nav-link" href="/logout">Jazz</a></li>
           <li class="nav-item active"><a class="nav-link" href="/team">Vinyl record players</a></li>
           <li class="nav-item active"><a class="nav-link" href="/register">Sign up</a></li>
         </ul>

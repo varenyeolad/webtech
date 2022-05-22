@@ -3,4 +3,4 @@ const router = express.Router()
 module.exports = router;
 router
     .route('/')
-    .get((req, res) => res.render('webpages/about'))
+    .get((req, res) => res.render('./webpages/about.ejs'))

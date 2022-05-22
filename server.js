@@ -12,7 +12,6 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const User = require('./modules/User')
-
 const bcrypt = require('bcrypt')
 
 const {
@@ -28,6 +27,7 @@ app.use(session({ secret: 'somevalue' }));
 //Find users
 const initializePassport = require('./passport-config')
 const {check} = require("express-validator");
+const {createServer} = require("http");
 initializePassport(
     passport,
     async(email)=>{
@@ -59,16 +59,25 @@ app.use('/js',express.static(__dirname +'/js'));
 app.use('/img',express.static(__dirname +'/img'));
 app.use("/", require("./views/routes/home"));
 app.use("/about", require("./views/routes/about"));
-app.use("/profile", require("./views/routes/profile"));
+app.use("/logout", require("./views/routes/profile"));
 app.use("/team", require("./views/routes/team"));
 app.use("/login", require("./views/routes/login"));
 app.use("/register", require("./views/routes/register"));
 
+app.get('logout', checkAuthenticated, (req,res)=>{
+    res.render("profile.ejs", { name: req.user.name })//GO TO PROFILE!!!! NOT MAIN
+})
+app.get('login',checkNotAuthenticated, (req,res)=>{
+    res.render('signin.ejs')
+})
+app.get('register',checkNotAuthenticated, (req,res)=>{
+    res.render('signup.ejs')
+})
 
 
 //---Login case---//
 app.post('/login',checkNotAuthenticated, passport.authenticate('local',{
-        successRedirect: '/profile',
+        successRedirect: '/logout',
         failureRedirect: '/login',
         failureFlash: true,
     })
@@ -80,7 +89,7 @@ app.post('/register', checkNotAuthenticated, async (req,res)=>{
     const userFound = await User.findOne({email: req.body.email})
 
     if(userFound){
-        req.flash('error', 'User already exist (¬-¬)')
+        req.flash('error', 'User already exist')
         res.redirect('/register')
     }
     else{
@@ -103,17 +112,19 @@ app.post('/register', checkNotAuthenticated, async (req,res)=>{
 })
 
 //---Log out---//
-app.delete('/profile', (req,res)=>{
-    req.logOut()
+app.delete('/logout', ({logOut}, res)=>{
+    logOut()
     res.redirect('/login')
 } )
+
+
 
 ///---MongoDB connect---///
 mongoose.connect('mongodb+srv://aruzhandata:aruzhandata21@cluster.rbfi6.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
 }).then(()=>console.log('MongoDb successfully connected'))
     .catch(e => console.log(e))
-
-app.listen(port, () =>
+const server = createServer(app)
+server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
 );

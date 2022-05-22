@@ -21,9 +21,17 @@
 </head>
 <body>
 <header id="header" class="header">
-    <script src="../../js/navbar.js"></script>
 
+
+    <script src="../../js/navbar.js"></script>
+    <form action="logout?_method=DELETE" method="POST">
+        <h2> Welcome , <%= name %> !</h2>
+        <div>  <button type="submit" class="btn btn-primary" >Log Out</button></div>
+
+    </form>
     <div class="container">
+
+
         <div class="performance">
             <div class="grid">
                 <h6 class="_preformance">vinyl records</h6>
@@ -31,6 +39,7 @@
             </div>
         </div>
     </div>
+
 </header>
 
 

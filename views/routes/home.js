@@ -4,4 +4,4 @@ const router = express.Router()
 module.exports = router;
 router
     .route('/')
-    .get((req, res) => res.render('webpages/home'))
+    .get((req, res) => res.render('webpages/home.ejs'))
